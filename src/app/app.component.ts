@@ -53,7 +53,9 @@ export class AppComponent implements OnInit {
   }
 
   openCalculadora(content: any, type: string) {
-    this.kg = undefined;
+    if (type !== 'result') {
+      this.kg = undefined;
+    }
     this.selected = false;
     this.modal
       .open(content, {
