@@ -25,13 +25,15 @@ p {
   font-size: 13px;
 }
 .p-text {
-  margin-right: 9px;
+  margin-right: 3px;
   width: 83px;
 }
 
 input[type="text"] {
   font-size: 15px;
   width: 149px;
+  height: 25px;
+  line-height: 1;
 }
 
 .text-app {
@@ -58,7 +60,7 @@ input[type="text"] {
     cursor: pointer;
   }
 
-  label{
+  label {
     color: white;
     font-size: 14px;
   }

@@ -38,9 +38,9 @@
       </div>
       <div class="window-body">
         <div class="d-flex align-items-center justify-content-between">
-          <p class="p-text" style="font-size: 13px">Introduce tu peso:</p>
+          <p style="font-size: 13px">Introduce tu peso:</p>
           <div class="d-flex">
-            <input (keypress)="numericOnly($event)" type="text" [(ngModel)]="kg" />
+            <input inputmode="numeric" (keypress)="numericOnly($event)" type="text" [(ngModel)]="kg" />
             <p style="margin-left: 9px">Kg</p>
           </div>
         </div>
