@@ -27,7 +27,11 @@ export class AppComponent implements OnInit {
   constructor(private modal: NgbModal, private renderer: Renderer2) {
     this.renderer.listen('window', 'click', (e: Event) => {
       var element = e.target as HTMLTextAreaElement;
-      if (element.id !== 'calc' && element.id !== 'puzzle') {
+      if (
+        element.id !== 'calc' &&
+        element.id !== 'puzzle' &&
+        element.id !== 'tetris'
+      ) {
         this.selected = '';
       }
     });
@@ -69,12 +73,12 @@ export class AppComponent implements OnInit {
       .open(content, {
         backdrop: 'static',
         animation: true,
-        size: type == 'puzzle' ? 'lg' : 'sm',
+        size: type == 'puzzle' || type == 'tetris' ? 'lg' : 'sm',
         centered: true,
         windowClass:
           type == 'result'
             ? 'result-modal'
-            : type == 'puzzle'
+            : type == 'puzzle' || type == 'tetris'
             ? 'puzzle-modal'
             : '',
       })
