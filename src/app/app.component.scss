@@ -65,7 +65,51 @@ input[type="text"] {
     font-size: 14px;
   }
 }
+@keyframes blinker {
+  50% {
+    opacity: 0.7;
+  }
+}
 ::ng-deep {
+  .modal-dialog {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .modal.fade {
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    -webkit-transition: none !important;
+    transition: none !important;
+
+    -moz-transform: none !important;
+    -ms-transform: none !important;
+    -o-transform: none !important;
+    -webkit-transform: none !important;
+    transform: none !important;
+  }
+
+  .modal-static {
+    .modal-dialog {
+      transform: none !important;
+      transform: scale(1) !important;
+    }
+    .title-bar {
+      animation: blinker 0.1s step-start infinite;
+    }
+  }
+  .puzzle-modal {
+    // .modal-content {
+    //   width: auto !important;
+    // }
+    .window-body {
+      padding: 0 !important;
+      margin-left: 3px;
+      margin-right: 3px;
+      margin-top: 0px;
+      margin-bottom: -7px;
+    }
+  }
+
   .result-modal {
     padding-top: 25px;
     padding-left: 30px;

@@ -1,30 +1,58 @@
 <div class="windows">
   <div
-    #app
-    id="app"
+    #calc
+    id="calc"
     class="app c-pointer text-center"
     style="width: fit-content; margin: 20px"
-    (click)="onClickApp(contentCalculator)"
+    (click)="onClickApp(contentCalculator, 'calc')"
     cdkDrag
   >
     <img
-      #app
-      id="app"
+      #calc
+      id="calc"
       width="55px"
       src="./assets/calculadora.png"
       alt="Calculadora Icon"
     />
-    <div class="c-pointer" #app id="app">
+    <div class="c-pointer" #calc id="calc">
       <label
-        #app
-        id="app"
+        #calc
+        id="calc"
         style="width: 70px"
-        [ngClass]="{ SelectedApp: selected }"
+        [ngClass]="{ SelectedApp: selected == 'calc' }"
         class="text-center text-app c-pointer"
         >Calculadora de peso</label
       >
     </div>
   </div>
+
+  <div
+    #puzzle
+    id="puzzle"
+    class="app c-pointer text-center"
+    style="width: fit-content; margin: 20px"
+    (click)="onClickApp(contentPuzzle, 'puzzle')"
+    cdkDrag
+  >
+    <img
+      #app
+      id="puzzle"
+      width="55px"
+      src="./assets/puzzle-fighter.png"
+      alt="Calculadora Icon"
+    />
+    <div class="c-pointer" #puzzle id="puzzle">
+      <label
+        #puzzle
+        id="puzzle"
+        style="width: 70px"
+        [ngClass]="{ SelectedApp: selected == 'puzzle' }"
+        class="text-center text-app c-pointer"
+        >Puzzle Fighter 2 turbo</label
+      >
+    </div>
+  </div>
+
   <ng-template id="contentCalculator" #contentCalculator let-modal>
     <div cdkDrag cdkDragRootElement=".modal-content" class="window">
       <div cdkDragHandle class="title-bar c-pointer">
@@ -40,12 +68,17 @@
         <div class="d-flex align-items-center justify-content-between">
           <p style="font-size: 13px">Introduce tu peso:</p>
           <div class="d-flex">
-            <input inputmode="numeric" (keypress)="numericOnly($event)" type="text" [(ngModel)]="kg" />
+            <input
+              inputmode="numeric"
+              (keypress)="numericOnly($event)"
+              type="text"
+              [(ngModel)]="kg"
+            />
             <p style="margin-left: 9px">Kg</p>
           </div>
         </div>
         <section class="field-row" style="justify-content: flex-end">
-          <button (click)="openCalculadora(contentResult, 'result')">Calcular</button>
+          <button (click)="openModal(contentResult, 'result')">Calcular</button>
           <!-- <button>Cancel</button> -->
         </section>
       </div>
@@ -79,8 +112,46 @@
       </div>
     </div>
   </ng-template>
+
+  <ng-template #contentPuzzle let-modal>
+    <div cdkDrag cdkDragRootElement=".modal-content" class="window">
+      <div cdkDragHandle class="title-bar c-pointer">
+        <div class="title-bar-text">
+          <img
+            #app
+            id="puzzle"
+            width="18px"
+            style="margin-right: 5px"
+            src="./assets/puzzle-fighter.png"
+            alt="Calculadora Icon"
+          />Puzzle fighter 2 turbo
+        </div>
+
+        <div class="title-bar-controls">
+          <button (click)="modal.close('ok')" aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <iframe
+          src="https://www.retrogames.cc/embed/10184-super-puzzle-fighter-ii-turbo-super-puzzle-fighter-2-turbo-960620-usa.html"
+          width="100%"
+          height="450"
+          frameborder="no"
+          allowfullscreen="true"
+          webkitallowfullscreen="true"
+          mozallowfullscreen="true"
+          scrolling="no"
+        ></iframe>
+      </div>
+    </div>
+  </ng-template>
+
   <div class="d-flex justify-content-center footer">
-    <a target="_blank" class="text-center" href="https://twitter.com/martinemmir">
+    <a
+      target="_blank"
+      class="text-center"
+      href="https://twitter.com/martinemmir"
+    >
       <img src="./assets/twitter.png" alt="Twitter @martinemmir" />
       <div>
         <label>@martinemmir</label>

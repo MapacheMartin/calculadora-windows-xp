@@ -1,3 +1,4 @@
+import { LogicalFileSystem } from '@angular/compiler-cli/src/ngtsc/file_system';
 import {
   Component,
   ElementRef,
@@ -14,18 +15,20 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AppComponent implements OnInit {
   @ViewChild('contentCalculator') content!: ElementRef;
-  @ViewChild('app') app!: ElementRef;
+  @ViewChild('calc') calc!: ElementRef;
   title = 'calculadora-de-peso';
-  selected = false;
-  private touchtime: any = 0;
+  selected = '';
+  private touch = {
+    type: '',
+    touchtime: 0,
+  };
   kg: any = undefined;
 
   constructor(private modal: NgbModal, private renderer: Renderer2) {
     this.renderer.listen('window', 'click', (e: Event) => {
       var element = e.target as HTMLTextAreaElement;
-
-      if (element.id !== 'app') {
-        this.selected = false;
+      if (element.id !== 'calc' && element.id !== 'puzzle') {
+        this.selected = '';
       }
     });
   }
@@ -33,37 +36,47 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {}
 
   ngAfterViewInit() {
-    this.openCalculadora(this.content, '');
+    this.openModal(this.content, '');
   }
 
-  onClickApp(content: any) {
-    if (this.touchtime == 0) {
-      this.selected = true;
-
-      this.touchtime = new Date().getTime();
+  onClickApp(content: any, type: string) {
+    if (this.touch.touchtime == 0 && this.touch.type == type) {
+      this.selected = type;
+      this.touch.touchtime = new Date().getTime();
+      this.touch.type = type;
     } else {
-      if (new Date().getTime() - this.touchtime < 800) {
-        this.openCalculadora(content, '');
-        this.touchtime = 0;
+      if (
+        new Date().getTime() - this.touch.touchtime < 800 &&
+        this.touch.type == type
+      ) {
+        this.openModal(content, type);
+        this.touch.touchtime = 0;
+        this.touch.type = '';
       } else {
-        this.touchtime = new Date().getTime();
-        this.selected = true;
+        this.touch.touchtime = new Date().getTime();
+        this.touch.type = type;
+        this.selected = type;
       }
     }
   }
 
-  openCalculadora(content: any, type: string) {
+  openModal(content: any, type: string) {
     if (type !== 'result') {
       this.kg = undefined;
     }
-    this.selected = false;
+    this.selected = '';
     this.modal
       .open(content, {
         backdrop: 'static',
-        animation: false,
-        size: 'sm',
+        animation: true,
+        size: type == 'puzzle' ? 'lg' : 'sm',
         centered: true,
-        windowClass: type == 'result' ? 'result-modal' : '',
+        windowClass:
+          type == 'result'
+            ? 'result-modal'
+            : type == 'puzzle'
+            ? 'puzzle-modal'
+            : '',
       })
       .result.then((result) => {});
   }
